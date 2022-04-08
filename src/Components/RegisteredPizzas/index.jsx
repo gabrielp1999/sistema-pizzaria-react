@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 function RegisteredPizzas(){
   const pizzaLocalStorage = JSON.parse(localStorage.getItem("pizzas"));
   if(!pizzaLocalStorage && !pizzaLocalStorage.length){
     return null;
   }
-  //'[]'
-  console.log({pizzaLocalStorage})
-    
+ 
   return(
     <div>
       <h1>Pizzas Cadastradas</h1>

@@ -5,8 +5,9 @@ import RegisteredPizzas from './Components/RegisteredPizzas';
 import RegisterPizzas from './Components/RegisterPizzas';
 
 function App() {
-  const [pizzas, setPizzas] = useState([]);
+  const [pizzas, setPizzas] = useState(JSON.parse(localStorage.getItem("pizzas")));
   const [pizza, setPizza] = useState({
+    id: null,
     nome:'',
     ingredient1:'',
     ingredient2:'',
@@ -14,11 +15,10 @@ function App() {
     ingredient4:'',
     img:''
   });
-
+ 
   useEffect(() => {
     localStorage.setItem('pizzas',JSON.stringify(pizzas));
   }, [pizzas]);
-
   
   const getIngred = (e, ingre) =>{
     setPizza({
@@ -30,7 +30,7 @@ function App() {
   const save = () => {
     if(pizza.nome !== '' && pizza.ingredient1 !== '' && pizza.ingredient2 !==''  && pizza.ingredient3 !== '' && pizza.ingredient4 !== ''){
      setPizzas([...pizzas, pizza]);
-      alert("salvou :)")
+      alert("salvo com sucesso :)")
     }else{
       alert("input vazio :/")
     }
