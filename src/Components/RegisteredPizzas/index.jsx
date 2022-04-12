@@ -33,7 +33,7 @@ function RegisteredPizzas(){
             <td>Imagem</td>
             <td>Editar</td>
             <td>excluir</td>
-        </tr>
+          </tr>
 
         {pizzas.map((pizza) => (
           <tr key={pizza.id}>
@@ -50,8 +50,8 @@ function RegisteredPizzas(){
             </td>
             <td>
               <button 
-                onClick={() => removePizza(pizza.id)} 
                 className="buttons">Excluir
+                onClick={() => removePizza(pizza.id)} 
               </button>
             </td>
           </tr>

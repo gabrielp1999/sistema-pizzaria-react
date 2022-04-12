@@ -18,12 +18,16 @@ function RegisterPizzas(){
   let navigate = useNavigate();
   const [pizzas, setPizzas] = useState(JSON.parse(localStorage.getItem("pizzas")) || []);
   const [pizza, setPizza] = useState(DEFAULT_STATE);
+  const [redirect, setRedirect] = useState(false);
   
   useEffect(() => {
-    if(pizzas.length !== 0){
+    if(pizzas.length > 0){
       localStorage.setItem('pizzas',JSON.stringify(pizzas));
     }
-  }, [pizzas]);
+    if(redirect === true){
+      navigate('/registeredpizzas');
+    }
+  }, [pizzas, redirect]);
   
   const getIngred = (e, ingre) =>{
     setPizza({
@@ -32,21 +36,21 @@ function RegisterPizzas(){
     })
   }
   
-  const save = () => {
+  const save = (needRedirect) => {
     if(pizza.nome !== '' && pizza.ingredient1 !== '' && pizza.ingredient2 !==''  && pizza.ingredient3 !== '' && pizza.ingredient4 !== ''){
-      
       setPizzas([...pizzas, {
         ...pizza,
         id: generateNumber(),
       }]);
-      alert("salvo com sucesso :)")
-      navigate("/registeredpizzas");
+      alert("salvo com sucesso :)");
     }else{
-      alert("input vazio :/")
+      alert("input vazio :/");
     }
+    setRedirect(needRedirect);
   }
+
   const newSave = () => {
-    save();
+    save(false);
     setPizza(DEFAULT_STATE);
   }
 
@@ -94,7 +98,7 @@ function RegisterPizzas(){
           onChange={(e) => getIngred(e, 'img')}
         />
         <div>
-          <button className="buttons" onClick={() => save()}>Salvar</button>
+          <button className="buttons" onClick={() => save(true)}>Salvar</button>
           <button className="buttons"  onClick={() => newSave()}>Salvar e adicionar</button>
         </div>
 
