@@ -54,6 +54,7 @@ body{
 .table{
   border: 1px solid black;
   background-color: rgba(140, 170, 200, 0.1);
+  margin: 5px;
 }
 .table tr, .table td {
   border: 1px solid black;
@@ -65,4 +66,11 @@ body{
 .photo{
   height: 40px;
   width: 40px;
+}
+
+.inputsFilter {
+  margin: 5px 7px;
+}
+label{
+  font-weight: bold;
 }

@@ -99,7 +99,7 @@ function RegisterPizzas(){
         />
         <div>
           <button className="buttons" onClick={() => save(true)}>Salvar</button>
-          <button className="buttons"  onClick={() => newSave()}>Salvar e adicionar</button>
+          <button className="buttons"  onClick={() => newSave()}>Salvar e novo</button>
         </div>
 
       </div>
