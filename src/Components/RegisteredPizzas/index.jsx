@@ -5,6 +5,7 @@ function RegisteredPizzas(){
   const [pizzas, setPizzas] = useState(JSON.parse(localStorage.getItem("pizzas")) || []);
   const [pizzasForFilter, setPizzasForFilter] = useState(JSON.parse(localStorage.getItem("pizzas")) || []);
   const [sweetAlertState, setSweetAlertState] = useState(false);
+  const [parametEcluir, setparametEcluir] = useState();
   
   useEffect(() => {
     localStorage.setItem("pizzas", JSON.stringify(pizzas));
@@ -38,10 +39,12 @@ function RegisteredPizzas(){
     });
     setPizzasForFilter(filterPizza);
   }
-  
+
   const onConfirm = () => {
-    removePizza()
+    removePizza(parametEcluir)
+    setSweetAlertState(false);
   }
+  
   const onCancel = () => {
     setSweetAlertState(false);
   }
@@ -50,6 +53,7 @@ function RegisteredPizzas(){
   const removePizza = (id) => {
       setSweetAlertState(true);
 
+      setparametEcluir(id)
       if(sweetAlertState === true){
         const newArray = pizzas.filter((pizza)=> {
           return pizza.id !== id;
@@ -125,8 +129,9 @@ function RegisteredPizzas(){
         {sweetAlertState && (
           <SweetAlert 
             title="Deseja mesmo apagar?" 
+            className="sweetAlert"
             showCancel
-            confirmBtnText="Yes, delete it!"
+            confirmBtnText="Sim!"
             confirmBtnBsStyle="danger"
             onConfirm={onConfirm} 
             onCancel={onCancel} 
