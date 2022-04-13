@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 
 const DEFAULT_STATE = {
   id: null,
@@ -11,10 +12,13 @@ const DEFAULT_STATE = {
   img:''
 };
 const generateNumber = () =>{
-  return  Math.floor(Math.random() * 90);
+  return  Math.floor(Math.random() * 200);
 }
 
 function RegisterPizzas(){
+  const { id } = useParams();
+  console.log({id});
+
   let navigate = useNavigate();
   const [pizzas, setPizzas] = useState(JSON.parse(localStorage.getItem("pizzas")) || []);
   const [pizza, setPizza] = useState(DEFAULT_STATE);
@@ -29,10 +33,10 @@ function RegisterPizzas(){
     }
   }, [pizzas, redirect]);
   
-  const getIngred = (e, ingre) =>{
+  const getPizza = (e, ingredient) =>{
     setPizza({
       ...pizza,
-      [ingre]: e.target.value
+      [ingredient]: e.target.value
     })
   }
   
@@ -65,37 +69,37 @@ function RegisterPizzas(){
           placeholder="pizza" 
           className="inputs"
           value={pizza.nome}
-          onChange={(e) => getIngred(e, 'nome')} 
+          onChange={(e) => getPizza(e, 'nome')} 
         />
         <input 
           placeholder="ingrediente 1" 
           className="inputs"
           value={pizza.ingredient1}
-          onChange={(e) => getIngred(e, 'ingredient1')}
+          onChange={(e) => getPizza(e, 'ingredient1')}
         />
         <input 
           placeholder="ingrediente 2" 
           className="inputs"
           value={pizza.ingredient2}
-          onChange={(e) => getIngred(e, 'ingredient2')}
+          onChange={(e) => getPizza(e, 'ingredient2')}
         />
         <input 
           placeholder="ingrediente 3"
           className="inputs"
           value={pizza.ingredient3}
-          onChange={(e) => getIngred(e, 'ingredient3')}
+          onChange={(e) => getPizza(e, 'ingredient3')}
         />
         <input 
           placeholder="ingrediente 4"
           className="inputs"
           value={pizza.ingredient4}
-          onChange={(e) => getIngred(e, 'ingredient4')}
+          onChange={(e) => getPizza(e, 'ingredient4')}
         />
         <input 
           placeholder="link da imagem"
           className="inputs"
           value={pizza.img}
-          onChange={(e) => getIngred(e, 'img')}
+          onChange={(e) => getPizza(e, 'img')}
         />
         <div>
           <button className="buttons" onClick={() => save(true)}>Salvar</button>

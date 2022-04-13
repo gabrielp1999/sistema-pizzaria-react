@@ -23,14 +23,20 @@ function App() {
             <Route  
               path="/" 
               element={
+              <RegisterPizzas />}
+            />
+
+              <Route 
+                path="/registeredpizzas" 
+                element={<RegisteredPizzas />} 
+              />
+              <Route  
+                path="/editar/:id" 
+                element={
                 <RegisterPizzas />}
               />
-
-            <Route 
-              path="/registeredpizzas" 
-              element={<RegisteredPizzas />} 
-              />
           </Routes>
+
         </main>
       </div>
     </Router>

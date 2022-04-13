@@ -6,6 +6,7 @@ function RegisteredPizzas(){
   const [pizzasForFilter, setPizzasForFilter] = useState(JSON.parse(localStorage.getItem("pizzas")) || []);
   const [sweetAlertState, setSweetAlertState] = useState(false);
   const [parametEcluir, setparametEcluir] = useState();
+  const [pizzaEdit, setPizzaEdit] = useState();
   
   useEffect(() => {
     localStorage.setItem("pizzas", JSON.stringify(pizzas));
@@ -23,17 +24,10 @@ function RegisteredPizzas(){
     setPizzasForFilter(filterPizza);
   }
 
-  // terminar o filter
-  // pesquisar um componente de alerta e confirm vai substituir o alert 
-  // pelo novo componente, 
-  // mudar o nome e o parametro da funcao, 
-  // fazer a parte de editar
-
   const searchIngredient = e => {
     const pizzaLocalStorage = JSON.parse(localStorage.getItem("pizzas")) || [];
     const filterPizza = pizzaLocalStorage.filter( pizza => {
       const result = pizza.ingredient1.indexOf(e.target.value) && pizza.ingredient2.indexOf(e.target.value) && pizza.ingredient3.indexOf(e.target.value) && pizza.ingredient4.indexOf(e.target.value);
-      
       const resp = result < 0 ?  false : true;
       return resp;
     });
@@ -49,22 +43,24 @@ function RegisteredPizzas(){
     setSweetAlertState(false);
   }
 
-
   const removePizza = (id) => {
-      setSweetAlertState(true);
-
-      setparametEcluir(id)
-      if(sweetAlertState === true){
-        const newArray = pizzas.filter((pizza)=> {
-          return pizza.id !== id;
-        });
-        setPizzas(newArray);
-        setPizzasForFilter(newArray);
-      }
+    setSweetAlertState(true);
+    setparametEcluir(id)
+    if(sweetAlertState === true){
+      const newArray = pizzas.filter( pizza => {
+        return pizza.id !== id;
+      });
+      setPizzas(newArray);
+      setPizzasForFilter(newArray);
+    }
   }
 
-  const editPizza = () => {
-    alert('editando ...')
+  const editPizza = (id) => {
+    const pizzaLocalStorage = JSON.parse(localStorage.getItem("pizzas")) || [];
+    const getId = pizzas.find(pizza  => {
+      return pizza.id === id;
+    });
+    console.log({getId});
   }
 
   if(pizzas.length === 0){
@@ -99,7 +95,7 @@ function RegisteredPizzas(){
             <td>Ingrediente 4</td>
             <td>Imagem</td>
             <td>Editar</td>
-            <td>excluir</td>
+            <td>Excluir</td>
           </tr>
 
         {pizzasForFilter.map((pizza) => (
@@ -112,7 +108,7 @@ function RegisteredPizzas(){
             <td> <img className="photo" src={pizza.img} /> </td>
             <td>
               <button
-                onClick={() => editPizza}
+                onClick={() => editPizza(pizza.id)}
                 className="buttons">Editar
               </button>
             </td>
@@ -126,17 +122,18 @@ function RegisteredPizzas(){
         ))}
       </tbody>
     </table>
-        {sweetAlertState && (
-          <SweetAlert 
-            title="Deseja mesmo apagar?" 
-            className="sweetAlert"
-            showCancel
-            confirmBtnText="Sim!"
-            confirmBtnBsStyle="danger"
-            onConfirm={onConfirm} 
-            onCancel={onCancel} 
-          />
-        )}
+      {sweetAlertState && (
+        <SweetAlert 
+          title="Deseja mesmo apagar?" 
+          className="sweetAlert"
+          confirmBtnText="Sim!"
+          showCancel
+          cancelBtnText="Não"
+          confirmBtnBsStyle="danger"
+          onConfirm={onConfirm} 
+          onCancel={onCancel} 
+        />
+      )}
     </div>
   )
 }
