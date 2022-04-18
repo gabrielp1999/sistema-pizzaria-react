@@ -25,7 +25,6 @@ function App() {
               element={
               <RegisterPizzas />}
             />
-
               <Route 
                 path="/registeredpizzas" 
                 element={<RegisteredPizzas />} 

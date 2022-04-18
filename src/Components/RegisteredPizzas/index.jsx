@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from "react";
 import SweetAlert from 'react-bootstrap-sweetalert';
+import { useNavigate } from "react-router-dom";
 
 function RegisteredPizzas(){
   const [pizzas, setPizzas] = useState(JSON.parse(localStorage.getItem("pizzas")) || []);
   const [pizzasForFilter, setPizzasForFilter] = useState(JSON.parse(localStorage.getItem("pizzas")) || []);
   const [sweetAlertState, setSweetAlertState] = useState(false);
   const [parametEcluir, setparametEcluir] = useState();
-  const [pizzaEdit, setPizzaEdit] = useState();
   
   useEffect(() => {
     localStorage.setItem("pizzas", JSON.stringify(pizzas));
   }, [pizzas,sweetAlertState]);
   
+  let navigate = useNavigate();
+
   const searchPizza = e => {
     const pizzaLocalStorage = JSON.parse(localStorage.getItem("pizzas")) || [];
     const filterPizza = pizzaLocalStorage.filter( pizza => {
-      const result = pizza.nome.indexOf(e.target.value);
-      
+      const result = pizza.nome.indexOf(e.target.value); 
       const resp = result < 0 ?  false : true;
       return resp;
     });
-    
     setPizzasForFilter(filterPizza);
   }
 
@@ -54,13 +54,8 @@ function RegisteredPizzas(){
       setPizzasForFilter(newArray);
     }
   }
-
   const editPizza = (id) => {
-    const pizzaLocalStorage = JSON.parse(localStorage.getItem("pizzas")) || [];
-    const getId = pizzas.find(pizza  => {
-      return pizza.id === id;
-    });
-    console.log({getId});
+    navigate(`/editar/${id}`);
   }
 
   if(pizzas.length === 0){
