@@ -35,7 +35,6 @@ function App() {
                 <RegisterPizzas />}
               />
           </Routes>
-
         </main>
       </div>
     </Router>

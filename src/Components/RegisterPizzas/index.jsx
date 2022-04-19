@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 const DEFAULT_STATE = {
   id: null,
@@ -15,26 +16,20 @@ const generateNumber = () =>{
   return  Math.floor(Math.random() * 200);
 }
 
-// mudar o titulo conforme o id recebido
-// ocultar o botão de add e novo quando for edição
-// setar a variavel de estado com as informação da pizza do id da url
-// quando for um cadastro preencher a variavel de estado com default state
-
 function RegisterPizzas(){
   const { id } = useParams();
   let navigate = useNavigate();
   const [pizzas, setPizzas] = useState(JSON.parse(localStorage.getItem("pizzas")) || []);
   const [pizza, setPizza] = useState(DEFAULT_STATE);
-  const [redirect, setRedirect] = useState(false);
+  const [saveAndNew, setSaveAndNew] = useState(false);
+  const [sweetAlertState, setSweetAlertState] = useState(false);
+  const [sweetAlertErro, setSweetAlertErro] = useState(false);
   
   useEffect(() => {
     if(pizzas.length > 0){
       localStorage.setItem('pizzas',JSON.stringify(pizzas));
     }
-    if(redirect){
-      navigate('/registeredpizzas');
-    }
-  }, [pizzas, redirect]);
+  }, [pizzas]);
 
   useEffect(() => {
     if(id !== undefined){
@@ -57,7 +52,6 @@ function RegisterPizzas(){
 
   }, [id]);
 
-
   const getPizza = (e, ingredient) =>{
     setPizza({
       ...pizza,
@@ -65,7 +59,7 @@ function RegisterPizzas(){
     })
   }
 
-  const save = (needRedirect) => {
+  const save = (isSaveAndNew) => {
     if(pizza.nome !== '' && pizza.ingredient1 !== '' && pizza.ingredient2 !== ''  && pizza.ingredient3 !== '' && pizza.ingredient4 !== ''){
       if(id !== undefined){// edicao
         const editedPizza = pizzas.map(item => {
@@ -83,25 +77,34 @@ function RegisterPizzas(){
           return item;
         });
         setPizzas(editedPizza);
-        alert("salvo com sucesso :)");
       }else{// adicao / cadastro
-      
-          setPizzas([...pizzas, {
-            ...pizza,
-            id: generateNumber(),
-          }]);
-          alert("salvo com sucesso :)");
-    }
-
-    setRedirect(needRedirect);
+        setPizzas([...pizzas, {
+          ...pizza,
+          id: generateNumber(),
+        }]);
+      }
+      setSweetAlertState(true);
+      setSaveAndNew(isSaveAndNew);
     }else{
-      alert("input vazio :/");
+      setSweetAlertErro(true);
+      // alert("input vazio :/");
     }
   }
 
+  const onConfirmErro = () => {
+    setSweetAlertErro(false);
+  }
+
   const newSave = () => {
-    save(false);
+    save(true);
     setPizza(DEFAULT_STATE);
+  }
+
+  const onConfirm = () => {
+    setSweetAlertState(false);
+    if(!saveAndNew) {
+      navigate('/registeredpizzas');
+    }
   }
 
   if(pizzas === '' || pizzas === undefined){
@@ -149,13 +152,26 @@ function RegisterPizzas(){
           onChange={(e) => getPizza(e, 'img')}
         />
         <div>
-          <button className="buttons" onClick={() => save(true)}>Salvar</button>
+          <button className="buttons" onClick={() => save(false)}>Salvar</button>
 
           {!id ? <button className="buttons"  onClick={() => newSave()}>Salvar e novo</button> : null}
           
         </div>
 
       </div>
+
+      {sweetAlertState && (
+        <SweetAlert 
+          title="Pizza salva com sucessoo" 
+          onConfirm={() => onConfirm()}/>
+        )}
+
+      {sweetAlertErro && (
+        <SweetAlert 
+          warning
+          title="input vazio :/" 
+          onConfirm={() => onConfirmErro()}/>
+        )}
     </div>
   )
 }

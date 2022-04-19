@@ -80,43 +80,45 @@ function RegisteredPizzas(){
           type="text"
         />
       </div>
-      <table className="table">
-        <tbody>
-          <tr>
-            <td>Pizza</td>
-            <td>Ingrediente 1</td>
-            <td>Ingrediente 2</td>
-            <td>Ingrediente 3</td>
-            <td>Ingrediente 4</td>
-            <td>Imagem</td>
-            <td>Editar</td>
-            <td>Excluir</td>
-          </tr>
+      <div className="scroll">
+        <table className="table">
+          <tbody>
+            <tr>
+              <td>Pizza</td>
+              <td>Ingrediente 1</td>
+              <td>Ingrediente 2</td>
+              <td>Ingrediente 3</td>
+              <td>Ingrediente 4</td>
+              <td>Imagem</td>
+              <td>Editar</td>
+              <td>Excluir</td>
+            </tr>
 
-        {pizzasForFilter.map((pizza) => (
-          <tr key={pizza.id}>
-            <td>{pizza.nome}</td>
-            <td>{pizza.ingredient1}</td>
-            <td>{pizza.ingredient2}</td>
-            <td>{pizza.ingredient3}</td>
-            <td>{pizza.ingredient4}</td>
-            <td> <img className="photo" src={pizza.img} /> </td>
-            <td>
-              <button
-                onClick={() => editPizza(pizza.id)}
-                className="buttons">Editar
-              </button>
-            </td>
-            <td>
-              <button 
-                onClick={() => removePizza(pizza.id)} 
-                className="buttons">Excluir
-              </button>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+          {pizzasForFilter.map((pizza) => (
+            <tr key={pizza.id}>
+              <td>{pizza.nome}</td>
+              <td>{pizza.ingredient1}</td>
+              <td>{pizza.ingredient2}</td>
+              <td>{pizza.ingredient3}</td>
+              <td>{pizza.ingredient4}</td>
+              <td> <img className="photo" src={pizza.img} /> </td>
+              <td>
+                <button
+                  onClick={() => editPizza(pizza.id)}
+                  className="buttons">Editar
+                </button>
+              </td>
+              <td>
+                <button 
+                  onClick={() => removePizza(pizza.id)} 
+                  className="buttons">Excluir
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
       {sweetAlertState && (
         <SweetAlert 
           title="Deseja mesmo apagar?" 
