@@ -4,9 +4,10 @@ import RegisteredPizzas from './Components/RegisteredPizzas';
 import RegisterPizzas from './Components/RegisterPizzas';
 
 function App() {
+  document.title = 'Sistema pizzaria react';
  
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <div className='app'>
         <nav className='navbar'>
           <ul>
