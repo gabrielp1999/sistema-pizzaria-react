@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/frutaria/static/css/main.ef2bcc01.css",
-    "main.js": "/frutaria/static/js/main.97dc44ff.js",
-    "static/js/787.fc506ff8.chunk.js": "/frutaria/static/js/787.fc506ff8.chunk.js",
-    "index.html": "/frutaria/index.html",
-    "main.ef2bcc01.css.map": "/frutaria/static/css/main.ef2bcc01.css.map",
-    "main.97dc44ff.js.map": "/frutaria/static/js/main.97dc44ff.js.map",
-    "787.fc506ff8.chunk.js.map": "/frutaria/static/js/787.fc506ff8.chunk.js.map"
+    "main.css": "/sistema-pizzaria-react/static/css/main.ef2bcc01.css",
+    "main.js": "/sistema-pizzaria-react/static/js/main.84205f69.js",
+    "static/js/787.fc506ff8.chunk.js": "/sistema-pizzaria-react/static/js/787.fc506ff8.chunk.js",
+    "index.html": "/sistema-pizzaria-react/index.html",
+    "main.ef2bcc01.css.map": "/sistema-pizzaria-react/static/css/main.ef2bcc01.css.map",
+    "main.84205f69.js.map": "/sistema-pizzaria-react/static/js/main.84205f69.js.map",
+    "787.fc506ff8.chunk.js.map": "/sistema-pizzaria-react/static/js/787.fc506ff8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ef2bcc01.css",
-    "static/js/main.97dc44ff.js"
+    "static/js/main.84205f69.js"
   ]
 }
